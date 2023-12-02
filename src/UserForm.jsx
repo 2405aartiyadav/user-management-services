@@ -1,13 +1,14 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import './style.css';
 import axios from "axios";
 
 
 let UserForm = () => {
-    const { register, watch, handleSubmit, formState: { errors } } = useForm();
+    const { register, watch, handleSubmit, formState: { errors }, resetField } = useForm();
 
     let onSubmit = (data) => {
+
         axios.post('http://localhost:8080/addUser', {
 
             "uName": data.name,
@@ -22,9 +23,15 @@ let UserForm = () => {
             .catch((errors) => {
                 throw errors;
             })
+            resetField('name')
+            resetField('email')
+            resetField('mobile')
+            resetField('location')
 
-        console.log(data);
+
     }
+   
+
     return (
         <div className="Formcontainer">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -37,7 +44,7 @@ let UserForm = () => {
                 <label className="form-label">Location</label>
                 <input type="text" className="form-control form-control-sm " name="location" {...register("location")} />
                 <br />
-                <input type="submit" className="btn btn-sm btn-primary" />
+                <input type="submit"  className="btn btn-sm btn-primary" />
 
             </form>
 

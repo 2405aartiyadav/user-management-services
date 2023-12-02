@@ -8,7 +8,7 @@ let UserDetail = () => {
         axios.get('http://localhost:8080/users')
             .then((response) => {
                 setUserDetails(response.data);
-                console.log(response)
+            
             })
             .catch((errors) => {
                 if (errors)
